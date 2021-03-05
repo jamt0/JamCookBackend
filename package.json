@@ -6,8 +6,9 @@
   "scripts": {
     "start": "npm run build && node build/index.js",
     "start:dev": "nodemon",
-    "build": "rimraf ./build && tsc",
-    "lint": "eslint . --ext .ts"
+    "build": "rimraf ./build && npm run tsc",
+    "lint": "eslint . --ext .ts",
+    "tsc": "tsc"
   },
   "author": "JamAvo",
   "license": "ISC",
@@ -29,7 +30,6 @@
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "rimraf": "^3.0.2",
-    "sequelize": "^6.5.0",
-    "tsc": "^1.20150623.0"
+    "sequelize": "^6.5.0"
   }
 }
