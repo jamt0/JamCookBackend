@@ -7,7 +7,8 @@
     "start": "npm run build && node build/index.js",
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "rimraf": "./node_modules/rimraf/bin.js"
   },
   "author": "JamAvo",
   "license": "ISC",
