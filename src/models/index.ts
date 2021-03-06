@@ -5,6 +5,7 @@ if (process.env.DATABASE_URL) {
   // the application is executed on Heroku ... use the mysql database
   var sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: config.dialect,
+    protocol: config.protocol,
     logging: true, //false
     pool: {
         max: config.pool.max,
@@ -19,9 +20,6 @@ if (process.env.DATABASE_URL) {
     host: config.HOST,
     port: config.PORT,
     dialect: config.dialect,
-    //operatorsAliases: false,
-    // disable logging; default: console.log
-    // logging: false,
     pool: {
       max: config.pool.max,
       min: config.pool.min,

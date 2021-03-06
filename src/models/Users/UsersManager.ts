@@ -1,25 +1,75 @@
-import * as express from "express";
+import { Request } from "express";
+import User from './User'
 
 export default class UsersManager {
 
-    public static getUsers = async (req: express.Request) => {
-        return {"response": "hola puto mundo, mostrar todos los usuarios"};
+    public static getUsers = async (req: Request) => {
+        const users = await User.findAll();
+        return {users};
     }
 
-    public static createUser = async (req: express.Request) => {
-        return {"response": "hola puto mundo, crear un usuario"};
+    public static createUser = async (req: Request) => {
+
+        const name = req.body.name;
+        const email = req.body.email;
+        const password = req.body.password;
+
+        const newUser = await User.create(
+            { 
+                name, 
+                email, 
+                password
+            }
+        );
+        return {newUser};
     }
 
-    public static readUser = async (req: express.Request) => {
-        return {"response": "hola puto mundo, mostrar un usuario"};
+    public static readUser = async (req: Request) => {
+        const id = req.body.id;
+
+        const userRead = await User.findOne(
+            { 
+                where: { id } 
+            }
+        );
+
+        return {userRead};
     }
     
-    public static updateUser = async (req: express.Request) => {
-        return {"response": "hola puto mundo, modificar un usuario"};
+    public static updateUser = async (req: Request) => {
+
+        const id = req.body.id;
+        const name = req.body.name;
+        const email = req.body.email;
+        const password = req.body.password;
+
+        const userUpdate = await User.findOne(
+            { 
+                where: { id } 
+            }
+        );
+
+        userUpdate.name = name;
+        userUpdate.email = email;
+        userUpdate.password = password;
+
+        await userUpdate.save();
+
+        return {userUpdate};
     }
 
-    public static deleteUser = async (req: express.Request) => {
-        return {"response": "hola puto mundo, eliminar un usuario"};
+    public static deleteUser = async (req: Request) => {
+        const id = req.body.id;
+
+        const userDelete = await User.findOne(
+            { 
+                where: { id } 
+            }
+        );
+
+        await userDelete.destroy();
+
+        return {userDelete};
     }
 
 }

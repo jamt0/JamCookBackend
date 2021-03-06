@@ -9,6 +9,7 @@ module.exports = {
     PASSWORD: process.env.DB_PASSWORD,
     DB: process.env.DB_NAME || "jam_cook",
     dialect: "mysql",
+    protocol: "mysql",
     pool: {
         max: 5,
         min: 0,
