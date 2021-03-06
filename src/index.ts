@@ -34,13 +34,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use('/api/users', require('./routes/UsersRoutes'));
 
-app.get("/api/test", (req: Request, res: Response) => {
-  res.status(200).json({
-    ok: true,
-    msg: "hi from my method",
-  });
-});
-
 app.get("/", (req: Request, res: Response) => {
   res.send("hello putitos!");
 });
