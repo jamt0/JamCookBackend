@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize } from "sequelize";
 const config = require("../config/db");
 
 if (process.env.DATABASE_URL) {
@@ -29,9 +29,4 @@ if (process.env.DATABASE_URL) {
   });
 }
 
-const db = {
-  sequelize: sequelize,
-  DataTypes: DataTypes,
-};
-
-module.exports = db;
+export default sequelize;

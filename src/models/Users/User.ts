@@ -1,28 +1,60 @@
-const db = require("..");
-import Sequelize from "sequelize";
+import { Model,  DataTypes, CreateOptions, UpdateOptions } from "sequelize";
+import * as Bcript from "bcryptjs";
+import sequelize from '..';
 
+class User extends Model {
+  public id!: number;
+  public name!: string;
+  public email!: string;
+  public password!: string;
 
-const Usuario = db.sequelize.define("users", {
+  checkPassword(password: string): boolean {
+    return Bcript.compareSync(password, this.password);
+  }
+}
+
+User.init(
+  {
     id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
     },
     name: {
-        type: Sequelize.STRING
+      type: DataTypes.STRING(128),
+      allowNull: false,
     },
     email: {
-        type: Sequelize.STRING
+      type: DataTypes.STRING(),
+      allowNull: false,
+      unique: true,
     },
     password: {
-        type: Sequelize.STRING
-    }
-}, {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+  },
+  {
+    tableName: "users",
     paranoid: true,
-    indexes: [
-        {unique: true, fields: ['email']}
-    ],
-    initialAutoIncrement: 1
-});
+    sequelize,
+    hooks: {
+      beforeCreate: async (user: User, options: CreateOptions) => {
+        const salt = Bcript.genSaltSync(10);
+        user.password = Bcript.hashSync(user.password, salt);
+      },
+      beforeUpdate: async (user: User, options: UpdateOptions) => {
+        if (user.changed("password")) {
+          const salt = Bcript.genSaltSync(10);
+          user.password = Bcript.hashSync(user.password, salt);
+        }
+      },
+    },
+  }
+);
 
-export default Usuario;
+export default User;

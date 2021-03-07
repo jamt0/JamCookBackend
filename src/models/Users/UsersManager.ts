@@ -10,9 +10,7 @@ export default class UsersManager {
 
     public static createUser = async (req: Request) => {
 
-        const name = req.body.name;
-        const email = req.body.email;
-        const password = req.body.password;
+        const { name, email, password} = req.body;
 
         const newUser = await User.create(
             { 
@@ -21,6 +19,7 @@ export default class UsersManager {
                 password
             }
         );
+
         return {newUser};
     }
 
@@ -49,11 +48,15 @@ export default class UsersManager {
             }
         );
 
-        userUpdate.name = name;
-        userUpdate.email = email;
-        userUpdate.password = password;
+        if ( userUpdate ) {
 
-        await userUpdate.save();
+            userUpdate.name = name;
+            userUpdate.email = email;
+            userUpdate.password = password;
+
+            await userUpdate.save();
+        }
+        
 
         return {userUpdate};
     }
@@ -67,7 +70,8 @@ export default class UsersManager {
             }
         );
 
-        await userDelete.destroy();
+        if( userDelete )
+            await userDelete.destroy();
 
         return {userDelete};
     }
