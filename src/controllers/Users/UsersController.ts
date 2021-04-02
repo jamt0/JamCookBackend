@@ -3,10 +3,6 @@ import {Response, Request} from "express";
 
 export default class UsersController {
 
-  public static jsonResponse( res: Response, code: number, message: string ) {
-    return res.status(code).json({ message });
-  }
-
   public static getUsers = async ( req: Request, res: Response ) => {
     const result = await UsersManager.getUsers(req);
     res.status(200).send(result);
@@ -17,8 +13,8 @@ export default class UsersController {
     res.status(200).send(result);
   };
 
-  public static readUser = async ( req: Request, res: Response ) => {
-    const result = await UsersManager.readUser(req);
+  public static getUser = async ( req: Request, res: Response ) => {
+    const result = await UsersManager.getUser(req);
     res.status(200).send(result);
   };
 

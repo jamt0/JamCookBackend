@@ -1,6 +1,9 @@
 import { Model,  DataTypes, CreateOptions, UpdateOptions } from "sequelize";
 import * as Bcript from "bcryptjs";
 import sequelize from '..';
+import ImageProfile from '../Images/Profiles/ImageProfile'
+import Age from '../Ages/Age'
+import Gender from '../Genders/Gender'
 
 class User extends Model {
   public id!: number;
@@ -37,6 +40,10 @@ User.init(
         notEmpty: true,
       },
     },
+    avatarId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: true
+    }
   },
   {
     tableName: "users",
@@ -56,5 +63,9 @@ User.init(
     },
   }
 );
+
+User.belongsTo(ImageProfile, {as: 'avatar', constraints: false});
+User.belongsTo(Age, {as: 'age', constraints: false});
+User.belongsTo(Gender, {as: 'gender', constraints: false});
 
 export default User;

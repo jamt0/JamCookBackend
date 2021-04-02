@@ -23,7 +23,8 @@ export default class UsersManager {
         return {newUser};
     }
 
-    public static readUser = async (req: Request) => {
+    public static getUser = async (req: Request) => {
+        
         const id = req.body.id;
 
         const userRead = await User.findOne(

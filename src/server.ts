@@ -25,7 +25,7 @@ app.use(express.json());
 
 //cors
 var corsOptions = {
-  origin: process.env.FRONT_URL,
+  //origin: process.env.FRONT_URL, hay que investigar mas de este tema
   credentials: true 
 };
 app.use(cors(corsOptions));

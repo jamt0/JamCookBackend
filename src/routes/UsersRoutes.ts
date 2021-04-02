@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/getUsers", [ checkJwt ], UsersController.getUsers);
 router.post("/createUser", UsersController.createUser);
-router.get("/readUser", UsersController.readUser);
+router.get("/getUser", UsersController.getUser);
 router.post("/updateUser", UsersController.updateUser);
 router.post("/deleteUser", UsersController.deleteUser);
 
