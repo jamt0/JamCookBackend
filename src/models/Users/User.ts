@@ -1,7 +1,7 @@
 import { Model,  DataTypes, CreateOptions, UpdateOptions } from "sequelize";
 import * as Bcript from "bcryptjs";
 import sequelize from '..';
-import ImageProfile from '../Images/Profiles/ImageProfile'
+import ImageProfile from '../Images/Avatars/ImageAvatar'
 import Age from '../Ages/Age'
 import Gender from '../Genders/Gender'
 
@@ -10,6 +10,9 @@ class User extends Model {
   public name!: string;
   public email!: string;
   public password!: string;
+  public imageAvatarId!: string;
+  public ageId!: string;
+  public genderId!: string;
 
   checkPassword(password: string): boolean {
     return Bcript.compareSync(password, this.password);
@@ -40,10 +43,6 @@ User.init(
         notEmpty: true,
       },
     },
-    avatarId: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true
-    }
   },
   {
     tableName: "users",
@@ -59,12 +58,15 @@ User.init(
           const salt = Bcript.genSaltSync(10);
           user.password = Bcript.hashSync(user.password, salt);
         }
-      },
+      }
     },
+    indexes: [
+      {unique: true, fields:['email']}
+    ],
   }
 );
 
-User.belongsTo(ImageProfile, {as: 'avatar', constraints: false});
+User.belongsTo(ImageProfile, {as: 'imageAvatar', constraints: false});
 User.belongsTo(Age, {as: 'age', constraints: false});
 User.belongsTo(Gender, {as: 'gender', constraints: false});
 

@@ -27,4 +27,9 @@ export default class UsersController {
     const result = await UsersManager.deleteUser(req);
     res.status(200).send(result);
   };
+
+  public static updateAvatarUser = async ( req: Request, res: Response ) => {
+    const result = await UsersManager.updateAvatarUser(req);
+    res.status(200).send(result);
+  };
 }

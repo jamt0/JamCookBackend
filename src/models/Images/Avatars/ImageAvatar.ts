@@ -1,12 +1,12 @@
 import sequelize from "../..";
 import { Model, DataTypes } from "sequelize";
 
-class ImageProfile extends Model {
+class ImageAvatar extends Model {
   public id!: number;
   public path!: string;
 }
 
-ImageProfile.init(
+ImageAvatar.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -20,10 +20,10 @@ ImageProfile.init(
     }
   },
   {
-    tableName: "images_profiles",
+    tableName: "images_avatars",
     paranoid: true,
     sequelize,
   }
 );
 
-export default ImageProfile;
+export default ImageAvatar;

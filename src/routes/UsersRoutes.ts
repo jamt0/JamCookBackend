@@ -6,8 +6,9 @@ const router = Router();
 
 router.get("/getUsers", [ checkJwt ], UsersController.getUsers);
 router.post("/createUser", UsersController.createUser);
-router.get("/getUser", UsersController.getUser);
-router.post("/updateUser", UsersController.updateUser);
+router.get("/getUser/:id", UsersController.getUser);
+router.post("/updateUser/:id", UsersController.updateUser);
 router.post("/deleteUser", UsersController.deleteUser);
+router.post("/updateAvatarUser/:id", UsersController.updateAvatarUser);
 
 export default router;

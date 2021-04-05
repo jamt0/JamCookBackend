@@ -20,7 +20,7 @@ Gender.init(
     }
   },
   {
-    tableName: "gender",
+    tableName: "genders",
     paranoid: true,
     sequelize,
   }

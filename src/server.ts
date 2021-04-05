@@ -2,6 +2,7 @@ import * as express from "express";
 import { Request, Response }  from "express";
 import * as cors from "cors";
 import * as helmet from "helmet";
+import * as fileUpload from "express-fileupload";
 import routes from "./routes"
 import sequelize from "./models";
 
@@ -32,6 +33,9 @@ app.use(cors(corsOptions));
 
 //herlmet
 app.use(helmet());
+
+//fileUpload
+app.use(fileUpload());
 
 //sequelize sync
 console.log('Sequelize enabled...')
