@@ -1,6 +1,6 @@
 import { Request } from "express";
 import User from 'models/Users/User'
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import config from "config/config";
 
 export default class AuthManager {

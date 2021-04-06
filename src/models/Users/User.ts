@@ -1,5 +1,5 @@
 import { Model,  DataTypes, CreateOptions, UpdateOptions } from "sequelize";
-import * as Bcript from "bcryptjs";
+import Bcript from "bcryptjs";
 import sequelize from 'models';
 import ImageProfile from 'models/Images/Avatars/ImageAvatar'
 import Age from 'models/Ages/Age'

@@ -4,18 +4,22 @@
       "es5",
       "es6"
     ],
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./build",
     "rootDir": "./src",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
+    "declaration": true,
     "strict": true,
-    "baseUrl": "./src"
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "esModuleInterop": true,
   },
-  "include": [
-    "src"
-  ]
+  "paths": {
+    "routes/*": ["routes/*"],
+    "models/*": ["models/*"],
+    "config/*": ["config/*"],
+    "middlewares/*": ["middlewares/*"],
+    "controllers/*": ["controllers/*"]
+  }
 }

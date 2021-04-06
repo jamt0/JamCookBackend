@@ -1,10 +1,11 @@
+import 'module-alias/register';
 import { Request, Response }  from "express";
-import * as express from "express";
-import * as path from "path";
-import * as cors from "cors";
-import * as helmet from "helmet";
-import * as fileUpload from "express-fileupload";
-import routes from "routes"
+import express from "express";
+import path from "path";
+import cors from "cors";
+import helmet from "helmet";
+import fileUpload from "express-fileupload";
+import routes from 'routes';
 import sequelize from "models";
 
 //puerto

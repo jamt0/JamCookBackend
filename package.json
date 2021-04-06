@@ -36,8 +36,16 @@
     "express-fileupload": "^1.2.1",
     "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
     "mysql2": "^2.2.5",
     "rimraf": "^3.0.2",
     "sequelize": "^6.5.0"
+  },
+  "_moduleAliases":{
+    "routes": "build/routes",
+    "models": "build/models",
+    "config": "build/config",
+    "middlewares": "build/middlewares",
+    "controllers": "build/controllers"
   }
 }
