@@ -12,6 +12,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": "./src"
   },
+  "include": [
+    "src"
+  ]
 }

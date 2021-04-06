@@ -1,4 +1,4 @@
-import UsersManager from "../../models/Users/UsersManager";
+import UsersManager from "models/Users/UsersManager";
 import {Response, Request} from "express";
 
 export default class UsersController {
@@ -28,8 +28,4 @@ export default class UsersController {
     res.status(200).send(result);
   };
 
-  public static updateAvatarUser = async ( req: Request, res: Response ) => {
-    const result = await UsersManager.updateAvatarUser(req);
-    res.status(200).send(result);
-  };
 }

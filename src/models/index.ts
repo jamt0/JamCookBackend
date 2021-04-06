@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-const config = require("../config/db");
+const config = require("config/db");
 
 if (process.env.DATABASE_URL) {
   // the application is executed on Heroku ... use the mysql database

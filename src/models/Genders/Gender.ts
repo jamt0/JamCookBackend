@@ -1,4 +1,4 @@
-import sequelize from "..";
+import sequelize from "models";
 import { Model, DataTypes } from "sequelize";
 
 class Gender extends Model {

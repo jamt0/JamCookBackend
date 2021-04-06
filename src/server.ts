@@ -1,10 +1,11 @@
-import * as express from "express";
 import { Request, Response }  from "express";
+import * as express from "express";
+import * as path from "path";
 import * as cors from "cors";
 import * as helmet from "helmet";
 import * as fileUpload from "express-fileupload";
-import routes from "./routes"
-import sequelize from "./models";
+import routes from "routes"
+import sequelize from "models";
 
 //puerto
 const PORT = process.env.PORT || 3000;
@@ -36,6 +37,9 @@ app.use(helmet());
 
 //fileUpload
 app.use(fileUpload());
+
+//Static public file
+app.use(express.static(path.join(__dirname, '../public')));
 
 //sequelize sync
 console.log('Sequelize enabled...')

@@ -1,9 +1,9 @@
 import { Model,  DataTypes, CreateOptions, UpdateOptions } from "sequelize";
 import * as Bcript from "bcryptjs";
-import sequelize from '..';
-import ImageProfile from '../Images/Avatars/ImageAvatar'
-import Age from '../Ages/Age'
-import Gender from '../Genders/Gender'
+import sequelize from 'models';
+import ImageProfile from 'models/Images/Avatars/ImageAvatar'
+import Age from 'models/Ages/Age'
+import Gender from 'models/Genders/Gender'
 
 class User extends Model {
   public id!: number;
