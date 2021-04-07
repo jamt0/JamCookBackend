@@ -1,22 +1,25 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-  }
+import dotenv from "dotenv";
 
-module.exports = {
-    HOST: process.env.DB_HOST,
-    PORT: process.env.DB_PORT,
-    USER: process.env.DB_USER,
-    PASSWORD: process.env.DB_PASSWORD,
-    DB: process.env.DB_NAME || "jam_cook",
-    dialect: "mysql",
-    protocol: "mysql",
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    },
-    INSTANCE: process.env.DB_INSTANCE,
-    SOCKETS_PATH: process.env.DB_SOCKETS_PATH,
-    CLOUD_SQL: process.env.CLOUD_SQL
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
+
+type configType = {
+  HOST: string;
+  PORT: number;
+  USER: string;
+  PASSWORD: string;
+  TYPE: any;
+  DB: string;
 };
+
+const config: configType = {
+  HOST: process.env.DB_HOST || "localhost",
+  PORT: Number(process.env.DB_PORT) || 3306,
+  USER: process.env.DB_USER || "test",
+  PASSWORD: process.env.DB_PASSWORD || "test",
+  DB: process.env.DB_NAME || "test",
+  TYPE: "mysql",
+};
+
+export default config;

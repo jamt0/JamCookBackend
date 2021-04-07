@@ -1,5 +1,6 @@
 import { Request } from "express";
-import User from 'models/Users/User'
+import { getRepository } from "typeorm";
+import { User } from 'entities/Users/User';
 import jwt from 'jsonwebtoken';
 import config from "config/config";
 
@@ -10,19 +11,19 @@ export default class AuthManager {
         if ( !( email && password ) ) {
             return {error : "Campos requeridos faltantes"}
         }
-        const user = await User.findOne(
-            { 
-                where: { email } 
-            }
-        );
-        if ( !user ) {
+        let user: User;
+        try {
+            user = await getRepository(User).findOneOrFail({
+                email: email
+            });
+        } catch (error) {
             return {error : "Email no registrado"}
         }
-        if ( !user.checkPassword(password) ){
-            return {error : "Contraseña incorrecta"}
-        }
+        // if ( !user.checkPassword(password) ){
+        //     return {error : "Contraseña incorrecta"}
+        // }
         const accessToken = jwt.sign({id: user.id, email: user.email}, process.env.KEY_ACCESSTOKEN || config.jwtSecret, { expiresIn: '1h'});
-        return {user, accessToken};
+        return {accessToken};
     }
 
     public static signUp = async (req: Request) => {
@@ -30,23 +31,19 @@ export default class AuthManager {
         if ( !( email && password && name ) ) {
             return {error : "Campos requeridos faltantes"}
         }
-        const user = await User.findOne(
-            { 
-                where: { email } 
-            }
-        );
-        if ( user ) {
+        const user = await getRepository(User).findOneOrFail({
+            email: email
+        });
+        if (user) {
             return {error : "Email registrado"}
         }
-        const newUser = await User.create(
-            { 
-                name, 
-                email, 
-                password
-            }
-        );
+        const newUser = new User();
+        newUser.name = name;
+        newUser.email = email;
+        newUser.password = password;
+        await getRepository(User).save(newUser);
         const accessToken = jwt.sign({id: newUser.id, email: newUser.email}, process.env.KEY_ACCESSTOKEN || config.jwtSecret, { expiresIn: '1h'});
-        return {user: newUser, accessToken};
+        return {accessToken};
     }
 
     public static authentication = async (req: Request) => {
