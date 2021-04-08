@@ -10,7 +10,7 @@ export const checkJwt = ( req: Request, res: Response, next: NextFunction) => {
         jwtPayload = <any>jwt.verify(accessToken, process.env.KEY_ACCESSTOKEN || config.jwtSecret);
         res.locals.jwtPayload = jwtPayload;
     } catch (error) {
-        return res.status(200).send({ error : "Usuario no autorizado" });
+        return res.status(401).send({ error : "Usuario no autorizado" });
     }
 
     const { id, email } = jwtPayload;

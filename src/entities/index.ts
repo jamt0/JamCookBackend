@@ -1,9 +1,12 @@
 import {ConnectionOptions} from "typeorm";
 import config from "config/db";
 import {User} from 'entities/Users/User'
+import { Gender } from "./Genders/Gender";
+import { Age } from "./Ages/Age";
+import { ImageAvatar } from "./Images/Avatars/ImageAvatar";
 
   let connectionOptions: ConnectionOptions;
-  let entities = [User];
+  let entities = [User, Gender, Age, ImageAvatar];
   // the application is executed on the local machine
   connectionOptions = {
     type: config.TYPE,
