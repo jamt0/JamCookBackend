@@ -1,8 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne} from "typeorm";
-import { IsDate, IsNotEmpty } from "class-validator";
+import {Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne, UpdateDateColumn, CreateDateColumn} from "typeorm";
+import { IsNotEmpty } from "class-validator";
 import { User } from "entities/Users/User";
 
-@Entity()
+@Entity({ name: 'images_avatars' })
 export class ImageAvatar {
 
     @PrimaryGeneratedColumn()
@@ -12,12 +12,10 @@ export class ImageAvatar {
     @IsNotEmpty()
     path: string;
 
-    @Column()
-    @IsDate()
+    @UpdateDateColumn()
     updateAt: Date;
   
-    @Column()
-    @IsDate()
+    @CreateDateColumn()
     createdAt: Date;
 
     @OneToOne(type => User, user => user.imageAvatar)

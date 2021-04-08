@@ -1,11 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique, ManyToOne, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, Unique, ManyToOne, OneToOne, DeleteDateColumn, UpdateDateColumn, CreateDateColumn } from "typeorm";
 import { MinLength, IsEmail, IsNotEmpty, IsDate } from "class-validator";
 import { Gender } from "entities/Genders/Gender";
 import { Age } from "entities/Ages/Age";
 import Bcript from "bcryptjs";
 import { ImageAvatar } from "entities/Images/Avatars/ImageAvatar";
 
-@Entity()
+@Entity({ name: 'users' })
 @Unique(["email"])
 export class User {
 
@@ -13,7 +13,7 @@ export class User {
   id: number;
 
   @Column()
-  @MinLength(8, { message: "Debe tener minimo 8 caracteres" })
+  @MinLength(3, { message: "Debe tener minimo 8 caracteres" })
   @IsNotEmpty()
   name: string;
 
@@ -35,16 +35,13 @@ export class User {
   @OneToOne(type => ImageAvatar, imageAvatar => imageAvatar.user)
   imageAvatar: ImageAvatar;
 
-  @Column()
-  @IsDate()
+  @UpdateDateColumn()
   updateAt: Date;
 
-  @Column()
-  @IsDate()
+  @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
-  @IsDate()
+  @DeleteDateColumn()
   deletedAt: Date;
 
   hashPassword(): void {

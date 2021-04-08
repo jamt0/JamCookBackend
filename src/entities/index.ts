@@ -15,18 +15,20 @@ import { ImageAvatar } from "./Images/Avatars/ImageAvatar";
     username: config.USER,
     password: config.PASSWORD,
     database: config.DB,
-    synchronize: true,
+    // synchronize: true,
     logging: true,
     entities: entities,
+    extra: { connectionLimit: 10 }
   };
   if (process.env.DATABASE_URL) {
     // the application is executed on Heroku ... use the mysql database
     Object.assign(connectionOptions, {
       type: config.TYPE,
       url: process.env.DATABASE_URL,
-      synchronize: true,
+      // synchronize: true,
       logging: true,
       entities: entities,
+      extra: { connectionLimit: 10 }
     });
   }
 

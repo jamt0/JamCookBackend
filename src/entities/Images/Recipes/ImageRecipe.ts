@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
-@Entity()
+@Entity({ name: 'images_recipes' })
 export class ImageRecipe {
 
     @PrimaryGeneratedColumn()
