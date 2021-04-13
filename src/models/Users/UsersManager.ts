@@ -4,25 +4,31 @@ import { Age } from "entities/Ages/Age";
 import { Gender } from "entities/Genders/Gender";
 import { User } from "entities/Users/User";
 import { validate } from "class-validator";
+
 export default class UsersManager {
   public static getUser = async (req: Request) => {
     const id = Number(req.params.id);
 
     let user: User;
     try {
-      user = await getRepository(User).findOneOrFail({ id });
+      user = await getRepository(User)
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.gender", "gender")
+        .leftJoinAndSelect("user.age", "age")
+        .where({ id })
+        .getOneOrFail();
     } catch (error) {
       return { error: "No existe el usuario" };
     }
 
-    const { name, email } = user;
-    const usuario = { name, email }; //falta el resto de datos
+    const { name, email, age, gender } = user;
+    const usuario = { name, email, age, gender };
     return { user: usuario };
   };
 
   public static updateUser = async (req: Request) => {
     const id = Number(req.params.id);
-    const { name, email, genderId, ageId } = req.body; //falta los otros datos
+    const { name, email, genderId, ageId } = req.body;
 
     if (!(name && email)) return { error: "Campos requeridos faltantes" };
 
@@ -33,33 +39,32 @@ export default class UsersManager {
       return { error: "No existe el usuario" };
     }
 
-    let userWithSameEmail: User | undefined;
-    userWithSameEmail = await getRepository(User).findOne({
-      where: { id: Not(id), email }
-    });
+    const userWithSameEmail: User | undefined = await getRepository(User).findOne({ where: { id: Not(id), email } });
 
     if (userWithSameEmail) return { error: "Correo ya esta en uso" };
 
+    let gender: Gender;
     if (genderId) {
       try {
-        await getRepository(Gender).findOneOrFail({ id });
+        gender = await getRepository(Gender).findOneOrFail({ id: genderId });
+        user.gender = gender;
       } catch (error) {
         return { error: "El genero seleccionado no existe" };
       }
     }
 
+    let age: Age;
     if (ageId) {
       try {
-        await getRepository(Age).findOneOrFail({ id });
+        age = await getRepository(Age).findOneOrFail({ id: ageId });
+        user.age = age;
       } catch (error) {
-        return { error: "El edad seleccionada no existe" };
+        return { error: "La edad seleccionada no existe" };
       }
     }
 
     user.name = name;
     user.email = email;
-    // user.genderId = genderId; //aca solo guardariamos esto si existe
-    // user.ageId = ageId;
 
     const errors = await validate(user);
     console.log(errors);

@@ -17,5 +17,5 @@ export default class UsersController {
     const result = await UsersManager.deleteUser(req);
     res.status(200).send(result);
   };
-
+  
 }

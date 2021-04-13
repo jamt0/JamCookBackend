@@ -18,7 +18,9 @@ import { ImageAvatar } from "./Images/Avatars/ImageAvatar";
     // synchronize: true,
     logging: true,
     entities: entities,
-    extra: { connectionLimit: 10 }
+    extra: { 
+      connectionLimit: 10
+    }
   };
   if (process.env.DATABASE_URL) {
     // the application is executed on Heroku ... use the mysql database
@@ -28,7 +30,9 @@ import { ImageAvatar } from "./Images/Avatars/ImageAvatar";
       // synchronize: true,
       logging: true,
       entities: entities,
-      extra: { connectionLimit: 10 }
+      extra: { 
+        connectionLimit: 10
+      }
     });
   }
 
