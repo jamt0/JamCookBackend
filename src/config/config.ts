@@ -1,4 +1,4 @@
 export default {
     jwtSecret: 'ClaveMuySecreta',
-    extensionsImages: ['png', 'jpeg', 'jpg']
+    extensionsImages: ['.png', '.jpeg', '.jpg']
 }

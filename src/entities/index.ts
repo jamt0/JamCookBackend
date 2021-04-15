@@ -1,12 +1,20 @@
 import {ConnectionOptions} from "typeorm";
 import config from "config/db";
 import {User} from 'entities/Users/User'
-import { Gender } from "./Genders/Gender";
-import { Age } from "./Ages/Age";
-import { ImageAvatar } from "./Images/Avatars/ImageAvatar";
+import { Gender } from "entities/Users/Genders/Gender";
+import { Age } from "entities/Users/Ages/Age";
+import { ImageAvatar } from "entities/Users/ImagesAvatars/ImageAvatar";
+import { Preference } from "entities/Users/Preferences/Preference";
+import { Allergy } from "entities/Users/Preferences/Allergies/Allergy";
+import { Comensal } from "entities/Users/Preferences/Comensals/Comensal";
+import { Diet } from "entities/Users/Preferences/Diets/Diet";
+import { DislikeIngredient } from "entities/Users/Preferences/DislikeIngredients/DislikeIngredient";
+import { KitchenLevel } from "entities/Users/Preferences/KitchenLevels/KitchenLevel";
+import { Objective } from "entities/Users/Preferences/Objectives/Objective";
+
 
   let connectionOptions: ConnectionOptions;
-  let entities = [User, Gender, Age, ImageAvatar];
+  let entities = [User, Gender, Age, ImageAvatar, Preference, Allergy, Comensal, Diet, DislikeIngredient, KitchenLevel, Objective ];
   // the application is executed on the local machine
   connectionOptions = {
     type: config.TYPE,

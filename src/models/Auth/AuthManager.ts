@@ -26,7 +26,10 @@ export default class AuthManager {
       process.env.KEY_ACCESSTOKEN || config.jwtSecret,
       { expiresIn: "12h" }
     );
-    return { accessToken };
+     
+    const userData = {id: user.id, email: user.email}
+
+    return { accessToken, user: userData };
   };
 
   public static signUp = async (req: Request) => {
@@ -60,7 +63,10 @@ export default class AuthManager {
       process.env.KEY_ACCESSTOKEN || config.jwtSecret,
       { expiresIn: "12h" }
     );
-    return { accessToken };
+
+    const userData = {id: user.id, email: user.email}
+
+    return { accessToken, user: userData };
   };
 
   public static authentication = async (req: Request) => {
@@ -76,6 +82,9 @@ export default class AuthManager {
     } catch (error) {
       return { error: "Usuario no autorizado" };
     }
-    return { user };
+
+    const userData = {id: user.id, email: user.email}
+
+    return { user: userData };
   };
 }

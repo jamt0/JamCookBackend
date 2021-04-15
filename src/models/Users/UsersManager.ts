@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { getRepository, Not } from "typeorm";
-import { Age } from "entities/Ages/Age";
-import { Gender } from "entities/Genders/Gender";
+import { Age } from "entities/Users/Ages/Age";
+import { Gender } from "entities/Users/Genders/Gender";
 import { User } from "entities/Users/User";
 import { validate } from "class-validator";
 
@@ -21,8 +21,7 @@ export default class UsersManager {
       return { error: "No existe el usuario" };
     }
 
-    const { name, email, age, gender } = user;
-    const usuario = { name, email, age, gender };
+    const usuario = { name: user.name, email: user.email, ageId: user.age?.id, genderId: user.gender?.id };
     return { user: usuario };
   };
 
