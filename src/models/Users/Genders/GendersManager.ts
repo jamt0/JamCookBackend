@@ -22,4 +22,6 @@ export default class GendersManager {
       }
     });
   };
+  
+  public static getGenders = async (req: Request) => {}
 }

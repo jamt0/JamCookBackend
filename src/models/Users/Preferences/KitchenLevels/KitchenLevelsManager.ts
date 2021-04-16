@@ -21,4 +21,8 @@ export default class KitchenLevelsManager {
       }
     });
   };
+
+  public static getkitchenLevels = async (req: Request) => {}
+
+  public static getkitchenLevelsUser = async (req: Request) => {}
 }

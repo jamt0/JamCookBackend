@@ -7,7 +7,7 @@ import config from "config/config";
 import path from "path";
 
 export default class ImageAvatarManager {
-  public static updateImageAvatar = async (req: Request) => {
+  public static putImageAvatar = async (req: Request) => {
     const id = req.params.id;
 
     let user: User;

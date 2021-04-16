@@ -22,4 +22,8 @@ export default class DietsManager {
       }
     });
   };
+
+  public static getDiets = async (req: Request) => {}
+  
+  public static getDietsUser = async (req: Request) => {}
 }

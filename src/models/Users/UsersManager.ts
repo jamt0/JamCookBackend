@@ -25,7 +25,7 @@ export default class UsersManager {
     return { user: usuario };
   };
 
-  public static updateUser = async (req: Request) => {
+  public static putUser = async (req: Request) => {
     const id = Number(req.params.id);
     const { name, email, genderId, ageId } = req.body;
 

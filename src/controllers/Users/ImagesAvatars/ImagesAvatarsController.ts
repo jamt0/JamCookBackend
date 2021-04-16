@@ -3,8 +3,8 @@ import {Response, Request} from "express";
 
 export default class ImagesAvatarsController {
 
-    public static updateImageAvatar = async ( req: Request, res: Response ) => {
-        const result = await ImagesAvatarsManager.updateImageAvatar(req);
+    public static putImageAvatar = async ( req: Request, res: Response ) => {
+        const result = await ImagesAvatarsManager.putImageAvatar(req);
         res.status(200).send(result);
     };
 

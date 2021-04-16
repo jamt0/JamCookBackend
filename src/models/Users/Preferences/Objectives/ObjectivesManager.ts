@@ -21,4 +21,8 @@ export default class ObjectivesManager {
       }
     });
   };
+
+  public static getObjectives = async (req: Request) => {}
+
+  public static getObjectivesUser = async (req: Request) => {}
 }

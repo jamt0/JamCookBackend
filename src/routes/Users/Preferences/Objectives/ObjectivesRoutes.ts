@@ -4,5 +4,7 @@ import ObjetivesController from 'controllers/Users/Preferences/Objectives/Object
 const router = Router();
 
 router.get("/initialize", ObjetivesController.initialize);
+router.get("/", ObjetivesController.getObjectives);
+router.get("/:userId", ObjetivesController.getObjectivesUser);
 
 export default router;

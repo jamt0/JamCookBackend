@@ -3,7 +3,7 @@ import ImagesAvatarsController from 'controllers/Users/ImagesAvatars/ImagesAvata
 
 const router = Router();
 
-router.get("/getImageAvatar/:id", ImagesAvatarsController.getImageAvatar);
-router.post("/updateImageAvatar/:id", ImagesAvatarsController.updateImageAvatar);
+router.get("/:id", ImagesAvatarsController.getImageAvatar);
+router.put("/:id", ImagesAvatarsController.putImageAvatar);
 
 export default router;

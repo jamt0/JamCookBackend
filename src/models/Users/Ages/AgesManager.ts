@@ -25,4 +25,6 @@ export default class AgesManager {
       }
     });
   };
+
+  public static getAges = async (req: Request) => {}
 }

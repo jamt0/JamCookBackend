@@ -4,5 +4,7 @@ import KitchenLevelsController from 'controllers/Users/Preferences/KitchenLevels
 const router = Router();
 
 router.get("/initialize", KitchenLevelsController.initialize);
+router.get("/", KitchenLevelsController.getkitchenLevels);
+router.get("/:userId", KitchenLevelsController.getkitchenLevelsUser);
 
 export default router;

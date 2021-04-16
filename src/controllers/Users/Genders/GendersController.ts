@@ -8,4 +8,9 @@ export default class GendersController {
     res.status(200).send(result);
   };
 
+  public static getGenders = async ( req: Request, res: Response ) => {
+    const result = await GendersManager.getGenders(req);
+    res.status(200).send(result);
+  };
+
 }
