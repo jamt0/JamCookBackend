@@ -29,12 +29,9 @@ export default class ImageAvatarManager {
 
     //si ya existe una imagen con el id del user lo correcto seria eliminarla, pero como si son de diferente ext
     
-    avatarImage.mv(uploadPath, function (error: any) {
-      if (error) {
-        console.log(error);
-        return { error: "Error guardando el archivo" };
-      }
-    });
+    await avatarImage.mv(uploadPath);
+
+    //faltaria validar el error de mv 
 
     let imageAvatar: ImageAvatar;
     try {

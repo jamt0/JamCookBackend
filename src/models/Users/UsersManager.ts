@@ -9,6 +9,8 @@ export default class UsersManager {
   public static getUser = async (req: Request) => {
     const id = Number(req.params.id);
 
+    if (isNaN(id)) return { error: "No se envio ID" };
+    
     let user: User;
     try {
       user = await getRepository(User)
