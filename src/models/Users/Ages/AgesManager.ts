@@ -26,5 +26,16 @@ export default class AgesManager {
     });
   };
 
-  public static getAges = async (req: Request) => {}
+  public static getAges = async (req: Request) => {
+    const optionsAges = [
+      { value: "1", label: "edad_menos_de_25" },
+      { value: "2", label: "edad_25_29" },
+      { value: "3", label: "edad_30_34" },
+      { value: "4", label: "edad_35_39" },
+      { value: "5", label: "edad_40_49" },
+      { value: "6", label: "edad_50_64" },
+      { value: "7", label: "edad_65_mas" },
+    ];
+    return optionsAges;
+  };
 }

@@ -1,9 +1,11 @@
 import { Request } from "express";
-import { getRepository, QueryFailedError } from "typeorm";
+import { getRepository } from "typeorm";
 import { User } from "entities/Users/User";
+import { ImageAvatar } from "entities/Users/ImagesAvatars/ImageAvatar";
 import jwt from "jsonwebtoken";
 import config from "config/config";
 import { validate } from "class-validator";
+import { TUser } from "types";
 
 export default class AuthManager {
   public static signIn = async (req: Request) => {
@@ -26,8 +28,20 @@ export default class AuthManager {
       process.env.KEY_ACCESSTOKEN || config.jwtSecret,
       { expiresIn: "12h" }
     );
-     
-    const userData = {id: user.id, email: user.email}
+
+    let imageAvatar: ImageAvatar | undefined;
+    try {
+      imageAvatar = await getRepository(ImageAvatar).findOne({
+        where: { user },
+      });
+    } catch (error) {}
+
+    const userData: TUser = {
+      id: user.id.toString(),
+      name: user.name,
+      email: user.email,
+      pathAvatarImage: imageAvatar ? imageAvatar.path : "NoTieneAvatar",
+    };
 
     return { accessToken, user: userData };
   };
@@ -48,7 +62,6 @@ export default class AuthManager {
     user.password = password;
 
     const errors = await validate(user);
-    console.log(errors);
     if (errors.length > 0) return { error: "Hay errores en los datos" };
 
     user.hashPassword();
@@ -64,16 +77,28 @@ export default class AuthManager {
       { expiresIn: "12h" }
     );
 
-    const userData = {id: user.id, email: user.email}
+    let imageAvatar: ImageAvatar | undefined;
+    try {
+      imageAvatar = await getRepository(ImageAvatar).findOne({
+        where: { user },
+      });
+    } catch (error) {}
+
+    const userData: TUser = {
+      id: user.id.toString(),
+      name: user.name,
+      email: user.email,
+      pathAvatarImage: imageAvatar ? imageAvatar.path : "NoTieneAvatar",
+    };
 
     return { accessToken, user: userData };
   };
 
   public static authentication = async (req: Request) => {
     const accessToken = <string>req.headers["accesstoken"];
-    if (accessToken === null) {
-      return { error: "No hay AccessToken" };
-    }
+
+    if (accessToken === null) return { error: "No hay AccessToken" };
+
     let user;
     try {
       user = <any>(
@@ -83,8 +108,13 @@ export default class AuthManager {
       return { error: "Usuario no autorizado" };
     }
 
-    const userData = {id: user.id, email: user.email}
+    const userData: TUser = {
+      id: user.id.toString(),
+      name: user.name,
+      email: user.email,
+      pathAvatarImage: "",
+    };
 
-    return { user: userData };
+    return { user: userData, accessToken };
   };
 }

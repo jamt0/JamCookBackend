@@ -10,7 +10,7 @@ export default class UsersManager {
     const id = Number(req.params.id);
 
     if (isNaN(id)) return { error: "No se envio ID" };
-    
+
     let user: User;
     try {
       user = await getRepository(User)
@@ -23,8 +23,13 @@ export default class UsersManager {
       return { error: "No existe el usuario" };
     }
 
-    const usuario = { name: user.name, email: user.email, ageId: user.age?.id, genderId: user.gender?.id };
-    return { user: usuario };
+    const usuario = {
+      name: user.name,
+      email: user.email,
+      ageId: user.age?.id,
+      genderId: user.gender?.id,
+    };
+    return usuario;
   };
 
   public static putUser = async (req: Request) => {
@@ -40,7 +45,9 @@ export default class UsersManager {
       return { error: "No existe el usuario" };
     }
 
-    const userWithSameEmail: User | undefined = await getRepository(User).findOne({ where: { id: Not(id), email } });
+    const userWithSameEmail: User | undefined = await getRepository(
+      User
+    ).findOne({ where: { id: Not(id), email } });
 
     if (userWithSameEmail) return { error: "Correo ya esta en uso" };
 

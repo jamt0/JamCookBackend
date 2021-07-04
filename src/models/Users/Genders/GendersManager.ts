@@ -22,6 +22,14 @@ export default class GendersManager {
       }
     });
   };
-  
-  public static getGenders = async (req: Request) => {}
+
+  public static getGenders = async (req: Request) => {
+    const optionsGenders = [
+      { value: "1", label: "genero_mujer" },
+      { value: "2", label: "genero_hombre" },
+      { value: "3", label: "genero_otro" },
+      { value: "4", label: "genero_prefiero_no_decirlo" },
+    ];
+    return optionsGenders;
+  };
 }
