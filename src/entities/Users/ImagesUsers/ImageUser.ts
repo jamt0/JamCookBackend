@@ -1,33 +1,31 @@
-import Recipe from "entities/Recipes/Recipe/Recipe";
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   JoinColumn,
   OneToOne,
   UpdateDateColumn,
+  CreateDateColumn,
 } from "typeorm";
+import { IsNotEmpty } from "class-validator";
+import { User } from "entities/Users/User";
 
-@Entity({ name: "images_recipes" })
-export class ImageRecipe {
+@Entity({ name: "images_users" })
+export class ImageUser {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
+  @IsNotEmpty()
   path: string;
 
-  @OneToOne((type) => Recipe, (recipe) => recipe.imageRecipe)
+  @OneToOne((type) => User, (user) => user.imageUser)
   @JoinColumn()
-  recipe: Recipe;
+  user: User;
 
   @UpdateDateColumn()
   updateAt: Date;
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

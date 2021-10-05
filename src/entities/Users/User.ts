@@ -1,15 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique, ManyToOne, OneToOne, DeleteDateColumn, UpdateDateColumn, CreateDateColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  Unique,
+  ManyToOne,
+  OneToOne,
+  DeleteDateColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+  JoinColumn,
+} from "typeorm";
 import { MinLength, IsEmail, IsNotEmpty, IsDate } from "class-validator";
 import { Gender } from "entities/Users/Genders/Gender";
 import { Age } from "entities/Users/Ages/Age";
 import Bcript from "bcryptjs";
-import { ImageAvatar } from "entities/Users/ImagesAvatars/ImageAvatar";
+import { ImageUser } from "entities/Users/ImagesUsers/ImageUser";
 import { Preference } from "./Preferences/Preference";
 
-@Entity({ name: 'users' })
+@Entity({ name: "users" })
 @Unique(["email"])
 export class User {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,24 +29,27 @@ export class User {
   name: string;
 
   @Column()
-  @IsEmail({}, { message: 'Correo electrónico no valido' })
+  @IsEmail({}, { message: "Correo electrónico no valido" })
   @IsNotEmpty()
   email: string;
 
   @Column()
-  @IsNotEmpty({ message: 'La contraseña no puede estar vacia' })
+  @IsNotEmpty({ message: "La contraseña no puede estar vacia" })
   password: string;
 
-  @ManyToOne(type => Gender, gender => gender.users)
+  @ManyToOne((type) => Gender, (gender) => gender.users)
+  @JoinColumn({ name: "genderId" })
   gender: Gender;
 
-  @ManyToOne(type => Age, age => age.users)
+  @ManyToOne((type) => Age, (age) => age.users)
+  @JoinColumn({ name: "ageId" })
   age: Age;
 
-  @OneToOne(type => ImageAvatar, imageAvatar => imageAvatar.user)
-  imageAvatar: ImageAvatar;
+  @OneToOne((type) => ImageUser, (imageUser) => imageUser.user)
+  imageUser: ImageUser;
 
-  @OneToOne(type => Preference, preference => preference.user)
+  @OneToOne((type) => Preference, (preference) => preference.user)
+  @JoinColumn({ name: "preferenceId" })
   preference: Preference;
 
   @UpdateDateColumn()
@@ -56,5 +69,4 @@ export class User {
   checkPassword(password: string): boolean {
     return Bcript.compareSync(password, this.password);
   }
-
 }

@@ -2,7 +2,7 @@ import { Request } from "express";
 import { UploadedFile } from "express-fileupload";
 import { User } from "entities/Users/User";
 import { getRepository } from "typeorm";
-import { ImageAvatar } from "entities/Users/ImagesAvatars/ImageAvatar";
+import { ImageUser } from "entities/Users/ImagesUsers/ImageUser";
 import config from "config/config";
 import path from "path";
 
@@ -22,29 +22,32 @@ export default class ImageAvatarManager {
 
     const avatarImage = req.files.avatarImage as UploadedFile;
     const avatarImageExtension = path.extname(avatarImage.name);
-    const uploadPath ="public/images/avatars/" + user.id + avatarImageExtension;
+    const uploadPath =
+      "public/images/avatars/" + user.id + avatarImageExtension;
 
     if (!config.extensionsImages.includes(avatarImageExtension))
       return { error: "No es una imagen" };
 
     //si ya existe una imagen con el id del user lo correcto seria eliminarla, pero como si son de diferente ext
-    
+
     await avatarImage.mv(uploadPath);
 
-    //faltaria validar el error de mv 
+    //faltaria validar el error de mv
 
-    let imageAvatar: ImageAvatar;
+    let imageUser: ImageUser;
     try {
-      imageAvatar = await getRepository(ImageAvatar).findOneOrFail({ where: { user } });
-      imageAvatar.path = uploadPath.replace('public/', '');
+      imageUser = await getRepository(ImageUser).findOneOrFail({
+        where: { user },
+      });
+      imageUser.path = uploadPath.replace("public/", "");
     } catch (error) {
-      imageAvatar = new ImageAvatar();
-      imageAvatar.path = uploadPath.replace('public/', '');
-      imageAvatar.user = user;
+      imageUser = new ImageUser();
+      imageUser.path = uploadPath.replace("public/", "");
+      imageUser.user = user;
     }
 
     try {
-      await getRepository(ImageAvatar).save(imageAvatar);
+      await getRepository(ImageUser).save(imageUser);
     } catch (error) {
       return { error: "Error guardando el archivo" };
     }
@@ -62,12 +65,14 @@ export default class ImageAvatarManager {
       return { error: "No existe el usuario" };
     }
 
-    let imageAvatar: ImageAvatar;
+    let imageUser: ImageUser;
     try {
-      imageAvatar = await getRepository(ImageAvatar).findOneOrFail({ where: { user } });
-      return { success: "OK", path: imageAvatar.path }
+      imageUser = await getRepository(ImageUser).findOneOrFail({
+        where: { user },
+      });
+      return { success: "OK", path: imageUser.path };
     } catch (error) {
-      return { success: "OK", path: "images/avatars/default.png" }
+      return { success: "OK", path: "images/avatars/default.png" };
     }
   };
 }

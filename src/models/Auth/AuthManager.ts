@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { getRepository } from "typeorm";
 import { User } from "entities/Users/User";
-import { ImageAvatar } from "entities/Users/ImagesAvatars/ImageAvatar";
+import { ImageUser } from "entities/Users/ImagesUsers/ImageUser";
 import jwt from "jsonwebtoken";
 import config from "config/config";
 import { validate } from "class-validator";
@@ -29,9 +29,9 @@ export default class AuthManager {
       { expiresIn: "12h" }
     );
 
-    let imageAvatar: ImageAvatar | undefined;
+    let imageUser: ImageUser | undefined;
     try {
-      imageAvatar = await getRepository(ImageAvatar).findOne({
+      imageUser = await getRepository(ImageUser).findOne({
         where: { user },
       });
     } catch (error) {}
@@ -40,7 +40,7 @@ export default class AuthManager {
       id: user.id.toString(),
       name: user.name,
       email: user.email,
-      pathAvatarImage: imageAvatar ? imageAvatar.path : "NoTieneAvatar",
+      pathAvatarImage: imageUser ? imageUser.path : "NoTieneAvatar",
     };
 
     return { accessToken, user: userData };
@@ -77,9 +77,9 @@ export default class AuthManager {
       { expiresIn: "12h" }
     );
 
-    let imageAvatar: ImageAvatar | undefined;
+    let imageUser: ImageUser | undefined;
     try {
-      imageAvatar = await getRepository(ImageAvatar).findOne({
+      imageUser = await getRepository(ImageUser).findOne({
         where: { user },
       });
     } catch (error) {}
@@ -88,7 +88,7 @@ export default class AuthManager {
       id: user.id.toString(),
       name: user.name,
       email: user.email,
-      pathAvatarImage: imageAvatar ? imageAvatar.path : "NoTieneAvatar",
+      pathAvatarImage: imageUser ? imageUser.path : "NoTieneAvatar",
     };
 
     return { accessToken, user: userData };

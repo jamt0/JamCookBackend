@@ -1,6 +1,4 @@
-import ImagesAvatarsManager from "models/Users/ImagesAvatars/ImagesAvatarsManager";
-import {Response, Request} from "express";
+import ImagesAvatarsManager from "models/Users/ImagesUsers/ImagesUsersManager";
+import { Response, Request } from "express";
 
-export default class ImagesRecipesController {
-
-}
+export default class ImagesRecipesController {}

@@ -6,9 +6,6 @@ export class Diet {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
-
   @OneToMany((type) => Preference, (preference) => preference.diet)
   preferences: Preference[];
 }

@@ -1,26 +1,25 @@
-import Recipe from "entities/Recipes/Recipe/Recipe";
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
   DeleteDateColumn,
-  JoinColumn,
-  OneToOne,
   UpdateDateColumn,
+  CreateDateColumn,
 } from "typeorm";
 
-@Entity({ name: "images_recipes" })
-export class ImageRecipe {
+@Entity({ name: "ingredients_lang" })
+export default class IngredientLang {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  path: string;
+  ingredient: string;
 
-  @OneToOne((type) => Recipe, (recipe) => recipe.imageRecipe)
-  @JoinColumn()
-  recipe: Recipe;
+  @Column()
+  language: string;
+
+  @Column()
+  name: string;
 
   @UpdateDateColumn()
   updateAt: Date;

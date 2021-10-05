@@ -6,9 +6,6 @@ export class Gender {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
-
   @OneToMany((type) => User, (user) => user.gender)
   users: User[];
 }

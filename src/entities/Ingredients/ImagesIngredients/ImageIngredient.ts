@@ -6,12 +6,13 @@ import {
   OneToOne,
   UpdateDateColumn,
   CreateDateColumn,
+  DeleteDateColumn,
 } from "typeorm";
 import { IsNotEmpty } from "class-validator";
-import { User } from "entities/Users/User";
+import Ingredient from "entities/Ingredients/Ingredient/Ingredient";
 
-@Entity({ name: "images_avatars" })
-export class ImageAvatar {
+@Entity({ name: "images_ingredients" })
+export default class ImageIngredient {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,13 +20,16 @@ export class ImageAvatar {
   @IsNotEmpty()
   path: string;
 
+  @OneToOne((type) => Ingredient, (ingredient) => ingredient.imageIngredient)
+  @JoinColumn()
+  ingredient: Ingredient;
+
   @UpdateDateColumn()
   updateAt: Date;
 
   @CreateDateColumn()
   createdAt: Date;
 
-  @OneToOne((type) => User, (user) => user.imageAvatar)
-  @JoinColumn()
-  user: User;
+  @DeleteDateColumn()
+  deletedAt: Date;
 }
